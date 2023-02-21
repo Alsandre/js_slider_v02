@@ -21,7 +21,7 @@ function slider(state) {
       break;
     case "LAST_LEFT":
       index = source.length - 3;
-      reset("LEFT", index, sliderSwiper);
+      reset("LEFT", source.length, sliderSwiper);
       //   sliderSwiper(index, "RESET", true);
       break;
     case "LAST_RIGHT":
