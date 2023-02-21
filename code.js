@@ -8,7 +8,7 @@ function slider(state) {
   switch (state) {
     case "INIT":
       index = Math.floor(source.length / 2);
-      sliderSwiper(index, "RIGHT");
+      sliderSwiper(index, "INIT");
       break;
     case "LEFT":
       index--;
@@ -19,17 +19,18 @@ function slider(state) {
       sliderSwiper(index, "RIGHT");
       break;
     case "LAST_LEFT":
-      index = source.length - 1;
-      sliderSwiper(index, 'LEFT', true);
+      index = source.length - 3;
+      sliderSwiper(index, "RESET", true);
       break;
     case "LAST_RIGHT":
-      index = 0;
-      sliderSwiper(index, 'RIGHT', true);
+      index = 2;
+      sliderSwiper(index, "RESET", true);
       break;
     default:
       index = 0;
   }
 }
+
 function sliderSwiper(index, direction, reset = false) {
   let lastLeftOld = $("last-left"),
     secondLeftOld = $("second-left"),
@@ -43,78 +44,38 @@ function sliderSwiper(index, direction, reset = false) {
     secondRightNew = source[index + 1],
     lastRightNew = source[index + 2];
 
-  let emptyLeft = document.createElement("img");
-  emptyLeft.classList.add("img-styles");
-  emptyLeft.src = "/assets/silhouette-left.png";
-  
-
-  let emptyRight = document.createElement("img");
-  emptyRight.classList.add("img-styles");
-  emptyRight.src = "/assets/silhouette-right.png";
-
   const collectionSize = source.length;
-
-  if (reset && index === 0) {
-    lastLeftOld.appendChild(emptyLeft);
-    secondLeftOld.appendChild(emptyLeft.cloneNode());
-    activeOld.appendChild(activeNew);
-    secondRightOld.appendChild(secondRightNew);
-    lastRightOld.appendChild(lastRightNew);
-    return;
-  } else if (reset && index === collectionSize - 1) {
-    lastLeftOld.replaceChild(lastLeftNew);
-    secondLeftOld.appendChild(secondLeftNew);
-    activeOld.appendChild(activeNew);
-    secondRightOld.appendChild(emptyRight);
-    lastRightOld.appendChild(emptyRight.cloneNode());
-    return;
+  if (reset) {
+    lastLeftOld.removeChild(lastLeftOld.childNodes[0]);
+    secondLeftOld.removeChild(secondLeftOld.childNodes[0]);
+    activeOld.removeChild(activeOld.childNodes[0]);
+    secondRightOld.removeChild(secondRightOld.childNodes[0]);
+    lastRightOld.removeChild(lastRightOld.childNodes[0]);
   }
-  //Edge case handle
-  switch (index) {
-    case 2:
-      if (direction === "LEFT") lastLeftNew = emptyLeft;
-      break;
-
-    case 1:
-      if (direction === "LEFT") {
-        lastLeftNew = emptyLeft;
-        secondLeftNew = emptyLeft.cloneNode();
-      }
-      break;
-
-    case 0:
-      if (direction === "LEFT") slider("LAST_LEFT");
-      break;
-
-    case collectionSize - 3:
-      if (direction === "RIGHT") lastRightNew = emptyRight;
-      break;
-
-    case collectionSize - 2:
-      if (direction === "RIGHT") {
-        lastRightNew = emptyRight;
-        secondRightNew = emptyRight.cloneNode();
-      }
-      break;
-
-    case collectionSize - 1:
-      if (direction === "RIGHT") slider("LAST_RIGHT");
-      break;
+  if (direction === "RIGHT") {
+    lastLeftOld.removeChild(lastLeftOld.childNodes[0]);
   }
-  //
+  if (direction === "LEFT") {
+    lastRightOld.removeChild(lastRightOld.childNodes[0]);
+  }
 
-//   console.log(lastLeftOld.childNodes[0]);
-  lastLeftOld.appendChild(lastLeftNew);
-  secondLeftOld.appendChild(secondLeftNew);
-  activeOld.appendChild(activeNew);
-  secondRightOld.appendChild(secondRightNew);
-  lastRightOld.appendChild(lastRightNew);
-  console.log(lastRightNew)
-  console.log(lastRightOld)
+  lastLeftOld.appendChild(lastLeftNew.imgElement);
+  secondLeftOld.appendChild(secondLeftNew.imgElement);
+  activeOld.appendChild(activeNew.imgElement);
+  secondRightOld.appendChild(secondRightNew.imgElement);
+  lastRightOld.appendChild(lastRightNew.imgElement);
 }
 
-$("left").addEventListener("click", () => slider("LEFT"));
-$("right").addEventListener("click", () => slider("RIGHT"));
+$("left").addEventListener("click", () => {
+  if (index === 2) {
+    slider("LAST_LEFT");
+  }  else slider("LEFT");
+});
+$("right").addEventListener("click", () => {
+  if (index === source.length - 3) {
+    slider("LAST_RIGHT");
+  } else slider("RIGHT");
+});
 
 window.addEventListener("load", () => {
   slider("INIT");
