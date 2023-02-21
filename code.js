@@ -1,7 +1,9 @@
 import { $, source } from "/constants.js";
+import { cat_walk } from "./cat-walk.js";
+import { reset } from "./reset-animation.js";
 
-console.log(source[0]);
-
+reset();
+// cat_walk();
 let index = Math.floor(source.length / 2);
 
 function slider(state) {
@@ -20,11 +22,13 @@ function slider(state) {
       break;
     case "LAST_LEFT":
       index = source.length - 3;
-      sliderSwiper(index, "RESET", true);
+      reset("LEFT", index, sliderSwiper);
+      //   sliderSwiper(index, "RESET", true);
       break;
     case "LAST_RIGHT":
       index = 2;
-      sliderSwiper(index, "RESET", true);
+      reset("RIGHT", source.length, sliderSwiper);
+      //   sliderSwiper(index, "RESET", true);
       break;
     default:
       index = 0;
@@ -65,16 +69,49 @@ function sliderSwiper(index, direction, reset = false) {
   secondRightOld.appendChild(secondRightNew.imgElement);
   lastRightOld.appendChild(lastRightNew.imgElement);
 }
+function animate(direction) {
+  //   let lastLeft = $("last-left"),
+  //     secondLeft = $("second-left"),
+  //     active = $("active"),
+  //     secondRight = $("second-right"),
+  //     lastRight = $("last-right");
+  //   if (direction === "LEFT") {
+  //     lastLeft.style.animationName = 'left-swipe';
+  //     secondLeft.style.animationName = 'left-swipe';
+  //     active.style.animationName = 'left-swipe';
+  //     secondRight.style.animationName = 'left-swipe';
+  //     lastRight.style.animationName = 'left-swipe';
+  //   }
+  let parent = $("slider-container");
+  if (direction === "LEFT") {
+    for (let child of parent.children) {
+      if (child.id !== "active")
+        child.children[0].style.animationName = "left-swipe";
+      else child.children[0].style.animationName = "bump";
+      setTimeout(() => (child.children[0].style.animationName = ""), 500);
+    }
+  }
+  if (direction === "RIGHT") {
+    for (let child of parent.children) {
+      if (child.id !== "active")
+        child.children[0].style.animationName = "right-swipe";
+      else child.children[0].style.animationName = "bump";
+      setTimeout(() => (child.children[0].style.animationName = ""), 500);
+    }
+  }
+}
 
 $("left").addEventListener("click", () => {
   if (index === 2) {
     slider("LAST_LEFT");
-  }  else slider("LEFT");
+  } else slider("LEFT");
+  animate("LEFT");
 });
 $("right").addEventListener("click", () => {
   if (index === source.length - 3) {
     slider("LAST_RIGHT");
   } else slider("RIGHT");
+  animate("RIGHT");
 });
 
 window.addEventListener("load", () => {

@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="slider1">
-      <div class="container">
+      <div class="container" id="slider-container">
         <div class="slide" id="last-left"></div>
         <div class="slide" id="second-left"></div>
         <div class="slide" id="active"></div>
@@ -18,8 +18,18 @@
         <div class="slide" id="last-right"></div>
       </div>
       <div class="actions">
-        <button id="left">&lt;</button> 
-        <button id="right">&gt;</button>
+        <div class="cat-walk-wrapper">
+          <div id="cat-walk-box-left">
+            <span class="line"></span>
+            <img id="cat-walk-left" src="/assets/cat-walk.png" alt="" />
+          </div>
+          <button id="left">&lt;</button>
+          <button id="right">&gt;</button>
+          <div id="cat-walk-box-right">
+            <span class="line"></span>
+            <img id="cat-walk-right" src="/assets/cat-walk.png" alt="" />
+          </div>
+        </div>
       </div>
     </div>
   </body>
