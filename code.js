@@ -2,8 +2,7 @@ import { $, source } from "/constants.js";
 import { cat_walk } from "./cat-walk.js";
 import { reset } from "./reset-animation.js";
 
-reset();
-// cat_walk();
+cat_walk();
 let index = Math.floor(source.length / 2);
 
 function slider(state) {
