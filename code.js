@@ -2,7 +2,7 @@ import { $, source } from "/constants.js";
 import { cat_walk } from "./cat-walk.js";
 import { reset } from "./reset-animation.js";
 
-reset();
+// reset();
 // cat_walk();
 let index = Math.floor(source.length / 2);
 
@@ -22,7 +22,7 @@ function slider(state) {
       break;
     case "LAST_LEFT":
       index = source.length - 3;
-      reset("LEFT", index, sliderSwiper);
+      reset("LEFT", source.length, sliderSwiper);
       //   sliderSwiper(index, "RESET", true);
       break;
     case "LAST_RIGHT":

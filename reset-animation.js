@@ -1,7 +1,8 @@
 export const reset = (resetFrom, size, action) => {
+  console.log(size)
   let index, resetDirection;
   resetFrom === "LEFT"
-    ? (index = 2)
+    ? (index = 1)
     : resetFrom === "RIGHT"
     ? (index = size - 3)
     : (index = Math.floor(size / 2));
@@ -19,15 +20,15 @@ export const reset = (resetFrom, size, action) => {
       resetDirection = "RIGHT";
   }
   const resetInterval = setInterval(() => {
-    if(resetDirection === "RIGHT" && index < size - 2){
+    if(resetDirection === "RIGHT" && index < (size - 2)){
+      action(index, resetDirection);
         index++;
-        action(index, resetDirection);
     }else if (resetDirection === "LEFT" && index > 1){
+      action(index, resetDirection);
         index--;
-        action(index, resetDirection);
     }
   }, 70);
-  if((resetFrom==='LEFT' && index === size - 3) || (resetFrom==='RIGHT' && index === 2) ){
+  if((resetFrom==='LEFT' && index === (size - 3)) || (resetFrom==='RIGHT' && index === 2) ){
     clearInterval(resetInterval);
     return 'reset done!';
   }
