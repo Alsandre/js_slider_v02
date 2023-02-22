@@ -1,4 +1,3 @@
-export const $ = (id) => document.getElementById(id);
 
 export const source = [];
 for (let i = -1; i < 23; i++) {
