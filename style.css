@@ -10,16 +10,16 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   box-shadow: inset 30px 30px 200px #000, inset -30px -30px 200px #000;
-  padding-top: 10rem;
+  padding-top: 5rem;
 }
 
 .container {
   width: 90%;
-  height: 350px;
+  height: 550px;
   background: url('assets/background2.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  /* box-shadow: inset 10px 10px 30px #000, inset -10px -10px 30px #000; */
+  box-shadow: inset 10px 10px 30px #000, inset -10px -10px 30px #000;
   margin: auto;
   background-color: #333;
   display: flex;
@@ -32,7 +32,8 @@ body {
 
 .slide {
   /* width: 19%; */
-  height: 200px;
+  height: 330px;
+  min-height: 300px;
   background-color: #333;
   object-fit: cover;
   overflow: hidden;
@@ -56,22 +57,29 @@ body {
 }
 #last-left{
   width: 15%;
-  filter: blur(2px);
+  min-width: 230px;
+  height: 200px;
+  filter: blur(4px);
 }
 #second-left {
   width: 17%;
-  filter: blur(1px);
+  min-width: 250px;
+  filter: blur(2px);
 }
 #active {
   width: 25%;
+  min-width: 350px;
+  height: 400px;
 }
 #second-right {
   width: 17%;
-  filter: blur(1px);
+  filter: blur(2px);
 }
 #last-right {
   width: 15%;
-  filter: blur(2px);
+  min-width: 250px;
+  height: 200px;
+  filter: blur(4px);
 }
 .actions {
   display: flex;
@@ -86,7 +94,7 @@ body {
   height: 60px;
   overflow: hidden;
   position: relative;
-  border: 1px solid blue;
+  border: 1px solid transparent;
 
 }
 #cat-walk-box-left img {
@@ -114,7 +122,7 @@ body {
   height: 60px;
   overflow: hidden;
   position: relative;
-  border: 1px solid blue;
+  border: 1px solid transparent;
 
 }
 #cat-walk-box-right img {
@@ -161,12 +169,6 @@ body {
   background-color: rgba(204, 204, 204, 0.418);
   box-shadow: 2px 2px 3px #b69b72;
   color: white;
-}
-.line {
-  display: inline-block;
-  width: 120px;
-  height: 1px;
-  background-color: green;
 }
 
 @keyframes left-swipe {
