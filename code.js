@@ -1,7 +1,31 @@
-import { $, source } from "/constants.js";
+import { $ } from "/constants.js";
 import { cat_walk } from "./cat-walk.js";
 import { reset } from "./reset-animation.js";
+import { fetchHTTP } from "./constants.js";
 
+let source = []
+window.onload = (e) => {
+  fetch(
+    "https://js-slider-e2a5d-default-rtdb.europe-west1.firebasedatabase.app/source.json"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      let dataLoad = [];
+      for (let key in data) {
+        if (key.includes("cat")) {
+          let imgElement = document.createElement("img");
+          imgElement.src = data[key];
+          imgElement.classList.add("img-styles");
+          let item = { imgElement };
+          dataLoad.push(item);
+        }
+      }
+      source =  [...dataLoad];
+    }).then(() => {
+      slider('INIT')
+    })
+}
 // reset();
 // cat_walk();
 let index = Math.floor(source.length / 2);
@@ -114,6 +138,6 @@ $("right").addEventListener("click", () => {
   animate("RIGHT");
 });
 
-window.addEventListener("load", () => {
-  slider("INIT");
-});
+// window.addEventListener("load", () => {
+//   slider("INIT");
+// });
