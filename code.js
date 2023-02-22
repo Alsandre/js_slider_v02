@@ -1,4 +1,4 @@
-import { $, source } from "/constants.js";
+import {source } from "/constants.js";
 import { cat_walk } from "./cat-walk.js";
 import { reset } from "./reset-animation.js";
 
@@ -35,11 +35,11 @@ function slider(state) {
 }
 
 function sliderSwiper(index, direction, reset = false) {
-  let lastLeftOld = $("last-left"),
-    secondLeftOld = $("second-left"),
-    activeOld = $("active"),
-    secondRightOld = $("second-right"),
-    lastRightOld = $("last-right");
+  let lastLeftOld = document.getElementById("last-left"),
+    secondLeftOld = document.getElementById("second-left"),
+    activeOld = document.getElementById("active"),
+    secondRightOld = document.getElementById("second-right"),
+    lastRightOld = document.getElementById("last-right");
 
   let lastLeftNew = source[index - 2],
     secondLeftNew = source[index - 1],
@@ -69,11 +69,11 @@ function sliderSwiper(index, direction, reset = false) {
   lastRightOld.appendChild(lastRightNew.imgElement);
 }
 function animate(direction) {
-  //   let lastLeft = $("last-left"),
-  //     secondLeft = $("second-left"),
-  //     active = $("active"),
-  //     secondRight = $("second-right"),
-  //     lastRight = $("last-right");
+  //   let lastLeft = document.getElementById("last-left"),
+  //     secondLeft = document.getElementById("second-left"),
+  //     active = document.getElementById("active"),
+  //     secondRight = document.getElementById("second-right"),
+  //     lastRight = document.getElementById("last-right");
   //   if (direction === "LEFT") {
   //     lastLeft.style.animationName = 'left-swipe';
   //     secondLeft.style.animationName = 'left-swipe';
@@ -81,7 +81,7 @@ function animate(direction) {
   //     secondRight.style.animationName = 'left-swipe';
   //     lastRight.style.animationName = 'left-swipe';
   //   }
-  let parent = $("slider-container");
+  let parent = document.getElementById("slider-container");
   if (direction === "LEFT") {
     for (let child of parent.children) {
       if (child.id !== "active")
@@ -100,13 +100,13 @@ function animate(direction) {
   }
 }
 
-$("left").addEventListener("click", () => {
+document.getElementById("left").addEventListener("click", () => {
   if (index === 2) {
     slider("LAST_LEFT");
   } else slider("LEFT");
   animate("LEFT");
 });
-$("right").addEventListener("click", () => {
+document.getElementById("right").addEventListener("click", () => {
   if (index === source.length - 3) {
     slider("LAST_RIGHT");
   } else slider("RIGHT");
